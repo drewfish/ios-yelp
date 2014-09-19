@@ -19,8 +19,13 @@ class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITabl
         tableView.dataSource = self
     }
 
-    @IBAction func onFilter(sender: AnyObject) {
-        println("--filter")
+    @IBAction func onFilter() {
+        println("--onFilter")
+    }
+
+    @IBAction func onSearch() {
+        println("--onSearch --text \(searchBar.text)")
+        searchBar.resignFirstResponder()
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -30,10 +35,6 @@ class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITabl
 
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         println("--searchBar --cancelButton --text \(searchBar.text)")
-    }
-
-    @IBAction func onFilter() {
-        println("--filter")
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
