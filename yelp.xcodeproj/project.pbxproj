@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		618B7F7919CBFC7000AEEF9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618B7F7819CBFC7000AEEF9D /* AppDelegate.swift */; };
-		618B7F7B19CBFC7000AEEF9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618B7F7A19CBFC7000AEEF9D /* ViewController.swift */; };
 		618B7F7E19CBFC7000AEEF9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 618B7F7C19CBFC7000AEEF9D /* Main.storyboard */; };
 		618B7F8019CBFC7000AEEF9D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 618B7F7F19CBFC7000AEEF9D /* Images.xcassets */; };
 		618B7F8319CBFC7000AEEF9D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 618B7F8119CBFC7000AEEF9D /* LaunchScreen.xib */; };
 		618B7F8F19CBFC7000AEEF9D /* yelpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618B7F8E19CBFC7000AEEF9D /* yelpTests.swift */; };
+		618B7F9C19CBFFA800AEEF9D /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618B7F9B19CBFFA800AEEF9D /* SearchResultsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +29,13 @@
 		618B7F7319CBFC7000AEEF9D /* yelp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yelp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		618B7F7719CBFC7000AEEF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		618B7F7819CBFC7000AEEF9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		618B7F7A19CBFC7000AEEF9D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		618B7F7D19CBFC7000AEEF9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		618B7F7F19CBFC7000AEEF9D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		618B7F8219CBFC7000AEEF9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		618B7F8819CBFC7000AEEF9D /* yelpTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yelpTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		618B7F8D19CBFC7000AEEF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		618B7F8E19CBFC7000AEEF9D /* yelpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yelpTests.swift; sourceTree = "<group>"; };
+		618B7F9B19CBFFA800AEEF9D /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +77,10 @@
 		618B7F7519CBFC7000AEEF9D /* yelp */ = {
 			isa = PBXGroup;
 			children = (
+				618B7F9819CBFF7300AEEF9D /* Models */,
+				618B7F9A19CBFF8200AEEF9D /* View Controllers */,
+				618B7F9919CBFF7A00AEEF9D /* Views */,
 				618B7F7819CBFC7000AEEF9D /* AppDelegate.swift */,
-				618B7F7A19CBFC7000AEEF9D /* ViewController.swift */,
 				618B7F7C19CBFC7000AEEF9D /* Main.storyboard */,
 				618B7F7F19CBFC7000AEEF9D /* Images.xcassets */,
 				618B7F8119CBFC7000AEEF9D /* LaunchScreen.xib */,
@@ -110,6 +112,28 @@
 				618B7F8D19CBFC7000AEEF9D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		618B7F9819CBFF7300AEEF9D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		618B7F9919CBFF7A00AEEF9D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		618B7F9A19CBFF8200AEEF9D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				618B7F9B19CBFFA800AEEF9D /* SearchResultsViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,7 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				618B7F7B19CBFC7000AEEF9D /* ViewController.swift in Sources */,
+				618B7F9C19CBFFA800AEEF9D /* SearchResultsViewController.swift in Sources */,
 				618B7F7919CBFC7000AEEF9D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,8 +363,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = yelp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -349,8 +375,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = yelp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -407,6 +435,7 @@
 				618B7F9419CBFC7000AEEF9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		618B7F9519CBFC7000AEEF9D /* Build configuration list for PBXNativeTarget "yelpTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +444,7 @@
 				618B7F9719CBFC7000AEEF9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
