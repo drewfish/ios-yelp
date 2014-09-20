@@ -8,11 +8,20 @@
 
 import UIKit
 
+
+extension UIViewController {
+    // expose settings model to all view controllers
+    var yelpModel: YelpModel {
+        return (UIApplication.sharedApplication().delegate as AppDelegate).yelpModel
+    }
+}
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var yelpModel = YelpModel()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.

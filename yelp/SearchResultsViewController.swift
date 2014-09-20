@@ -8,33 +8,54 @@
 
 import UIKit
 
-class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, YelpSearchResultsDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        searchBar.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-
     @IBAction func onFilter() {
-        println("--onFilter")
+        println("SEARCH --onFilter")
     }
 
     @IBAction func onSearch() {
-        println("--onSearch --text \(searchBar.text)")
+        println("SEARCH --onSearch --text \(searchBar.text)")
+        yelpModel.startSearch()
         searchBar.resignFirstResponder()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        println("SEARCH --viewDidLoad")
+        searchBar.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        yelpModel.searchDelegate = self
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        println("SEARCH --viewWillAppear --pvc \(self.presentedViewController)")
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        println("SEARCH --viewDidAppear --pvc \(self.presentedViewController)")
+    }
+
+    func yelpSearchStarted() {
+        println("SEARCH --searchStarted --pvc \(self.presentedViewController)")
+//        self.window.rootViewController
+    }
+
+    func yelp(#searchResults: NSDictionary?, error: NSError?) {
+        println("SEARCH --searchResults")
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        println("--searchBar --searchButton --text \(searchBar.text)")
+        println("SEARCH --searchBar --searchButton --text \(searchBar.text)")
+        yelpModel.startSearch()
         searchBar.resignFirstResponder()
     }
 
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        println("--searchBar --cancelButton --text \(searchBar.text)")
+        println("SEARCH --searchBar --cancelButton --text \(searchBar.text)")
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,8 +71,7 @@ class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITabl
 //        super.didReceiveMemoryWarning()
 //    }
 
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+//    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject!) {
+//        println("SEARCH --segue --dest \(segue?.destinationViewController)")
 //    }
-
-
 }

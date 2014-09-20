@@ -27,6 +27,7 @@
                                 </state>
                                 <connections>
                                     <action selector="onFilter" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nkj-cd-lno"/>
+                                    <segue destination="Eae-aj-uEu" kind="presentation" modalTransitionStyle="flipHorizontal" id="9iE-VC-96d"/>
                                 </connections>
                             </button>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0xt-8v-V5T" userLabel="searchBar">
@@ -117,6 +118,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="309" y="365"/>
+        </scene>
+        <!--Filters View Controller-->
+        <scene sceneID="SkY-d8-qxu">
+            <objects>
+                <viewController id="Eae-aj-uEu" customClass="FiltersViewController" customModule="yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZCx-be-P7l"/>
+                        <viewControllerLayoutGuide type="bottom" id="mJV-V3-djW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZYx-LN-Bp4">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2B-zO-20Q" userLabel="cancelButton">
+                                <rect key="frame" x="0.0" y="28" width="65" height="44"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCancel" destination="Eae-aj-uEu" eventType="touchUpInside" id="VYV-RQ-aCJ"/>
+                                    <action selector="onSearch" destination="BYZ-38-t0r" eventType="touchUpInside" id="hHM-Bn-rtK"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Filters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qdz-2f-mzb">
+                                <rect key="frame" x="63" y="28" width="149" height="44"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zkb-zD-lzz" userLabel="searchButton">
+                                <rect key="frame" x="212" y="28" width="65" height="44"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Search">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSearch" destination="Eae-aj-uEu" eventType="touchUpInside" id="VD6-U2-tqF"/>
+                                    <action selector="onSearch" destination="BYZ-38-t0r" eventType="touchUpInside" id="pB1-Gh-kK1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xO0-Om-mkh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1101" y="365"/>
         </scene>
     </scenes>
 </document>
