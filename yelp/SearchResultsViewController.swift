@@ -31,6 +31,7 @@ class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITabl
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
         search()
     }
 
