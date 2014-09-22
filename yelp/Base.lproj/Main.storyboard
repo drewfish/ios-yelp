@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -48,7 +47,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Agm-nz-bIM" userLabel="thumbImage">
-                                                    <rect key="frame" x="8" y="8" width="80" height="80"/>
+                                                    <rect key="frame" x="8" y="10" width="80" height="80"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1. Grand Pu Bah" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykZ-8i-CKx" userLabel="nameLabel">
                                                     <rect key="frame" x="96" y="8" width="313" height="21"/>
@@ -77,12 +76,6 @@
                                                     <color key="textColor" red="0.50196081399917603" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jU9-CE-hZM" userLabel="priceLabel">
-                                                    <rect key="frame" x="548" y="25" width="44" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.50196081399917603" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="88 Division St, Mission Bay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJu-IG-Oj5" userLabel="locationLabel">
                                                     <rect key="frame" x="96" y="48" width="496" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -91,6 +84,15 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="categoriesLabel" destination="Bv2-QH-nXf" id="OwH-fE-AFn"/>
+                                            <outlet property="distanceLabel" destination="0Kq-0h-pyy" id="Hiz-f3-09L"/>
+                                            <outlet property="locationLabel" destination="UJu-IG-Oj5" id="4m4-Mv-Jcf"/>
+                                            <outlet property="nameLabel" destination="ykZ-8i-CKx" id="REF-pP-gua"/>
+                                            <outlet property="ratingsImage" destination="39b-Xw-0vp" id="3T8-nD-rEZ"/>
+                                            <outlet property="reviewsLabel" destination="yET-aB-LEQ" id="RVc-ih-MfR"/>
+                                            <outlet property="thumbImage" destination="Agm-nz-bIM" id="ajG-eQ-mzk"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var yelpModel = YelpModel()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        var hud = MMProgressHUD.sharedHUD()
+        hud.presentationStyle = MMProgressHUDPresentationStyle.Fade
         return true
     }
 

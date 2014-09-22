@@ -8,26 +8,27 @@
 
 import UIKit
 
+
 class FiltersViewController: UIViewController {
+    var delegate: YelpSearchSettingsDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("FILTERS --viewDidLoad")
+        println("FILTERS --viewDidLoad --delegate \(delegate)")
     }
 
     override func viewWillAppear(animated: Bool) {
-        println("FILTERS --viewWillAppear")
+        println("FILTERS --viewWillAppear --delegate \(delegate)")
     }
 
     @IBAction func onCancel() {
-        println("FILTERS --onCancel")
+        println("FILTERS --onCancel --delegate \(delegate)")
         dismissViewControllerAnimated(true, completion: nil)
     }
 
     @IBAction func onSearch() {
-        println("FILTERS --onSearch")
-        // TODO -- save new settings
-        yelpModel.startSearch()
+        println("FILTERS --onSearch --delegate \(delegate)")
+        // TODO -- delegate!.yelpSearchSettings(settings: ...)
         dismissViewControllerAnimated(true, completion: nil)
     }
 

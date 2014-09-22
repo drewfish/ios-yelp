@@ -2,11 +2,7 @@
 
 This is an iOS demo application for displaying business info from http://yelp.com/.
 
-**Time spent:** 10 hours
-* 1 hour -- research & planning
-* 1 hour -- search page, lost due to xcode crashes
-* 1 hour -- search page (again)
-* 1 hour -- settings page, page transitions, skeleton of model
+**Time spent:** 7 hours
 
 
 ## Completed User Stories
