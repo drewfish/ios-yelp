@@ -8,26 +8,22 @@
 
 import UIKit
 
-class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, YelpSearchSettingsDelegate {
+class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, YelpSearchDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-    var searchSettings: YelpSearchSettings?
     var businesses: [YelpBusiness] = []
 
     @IBAction func onFilter() {
-        println("SEARCH --onFilter")
         // FUTURE -- probably nothing to do here, since push is already setup
     }
 
     @IBAction func onSearch() {
-        println("SEARCH --onSearch --text \(searchBar.text)")
         search()
         searchBar.resignFirstResponder()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("SEARCH --viewDidLoad")
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
@@ -36,9 +32,8 @@ class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITabl
     }
 
     func search() {
-        println("SEARCH --search \(searchBar.text)")
         MMProgressHUD.showWithStatus("Loading...")
-        yelpModel.search(searchBar.text!, settings: searchSettings, done: {
+        yelpModel.search(searchBar.text!, done: {
             (businesses: [YelpBusiness], error: NSError?) in
             MMProgressHUD.dismiss()
             if error != nil {
@@ -60,15 +55,12 @@ class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITabl
 //        println("SEARCH --viewDidAppear --pvc \(self.presentedViewController)")
 //    }
 
-    func yelpSearchSettings(settings: YelpSearchSettings) {
-        println("SEARCH --yelpSearchSettings --pvc \(self.presentedViewController)")
-        searchSettings = settings
+    func yelpSearch() {
         // By starting the search now we can do the asynchronous search while the segue is happening.
         search()
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        println("SEARCH --searchBar --searchButton --text \(searchBar.text)")
         search()
         searchBar.resignFirstResponder()
     }
@@ -79,6 +71,10 @@ class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITabl
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return businesses.count
+    }
+
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -93,7 +89,6 @@ class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITabl
 //    }
 
     override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject!) {
-        println("SEARCH --segue --dest \(segue?.destinationViewController)")
         (segue!.destinationViewController as FiltersViewController).delegate = self
     }
 }

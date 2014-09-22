@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3298755CA4894D0796323DCE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDCFD44FA64644E98F025135 /* libPods.a */; };
+		61803ADD19D08CBE001C957B /* SelectOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61803ADC19D08CBE001C957B /* SelectOptionCell.swift */; };
 		618B7F7919CBFC7000AEEF9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618B7F7819CBFC7000AEEF9D /* AppDelegate.swift */; };
 		618B7F7E19CBFC7000AEEF9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 618B7F7C19CBFC7000AEEF9D /* Main.storyboard */; };
 		618B7F8019CBFC7000AEEF9D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 618B7F7F19CBFC7000AEEF9D /* Images.xcassets */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		610DDB7519CE598600D6F78F /* yelp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "yelp-Bridging-Header.h"; sourceTree = "<group>"; };
+		61803ADC19D08CBE001C957B /* SelectOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectOptionCell.swift; sourceTree = "<group>"; };
 		618B7F7319CBFC7000AEEF9D /* yelp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yelp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		618B7F7719CBFC7000AEEF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		618B7F7819CBFC7000AEEF9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				61A2981019CC18F60039D40F /* BusinessCell.swift */,
+				61803ADC19D08CBE001C957B /* SelectOptionCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				618B7F9C19CBFFA800AEEF9D /* SearchResultsViewController.swift in Sources */,
+				61803ADD19D08CBE001C957B /* SelectOptionCell.swift in Sources */,
 				619839C719CD2620001D0ACF /* YelpModel.swift in Sources */,
 				618B7F7919CBFC7000AEEF9D /* AppDelegate.swift in Sources */,
 				61DB366C19CFCF5400891817 /* YelpBusinessCategories.swift in Sources */,

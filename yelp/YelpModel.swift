@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CoreLocation
 
 
 struct YelpBusinessCategory {
@@ -54,12 +53,12 @@ struct YelpSearchSettings {
     var distance: Int       // meters
     var sortBy: Int         // 0=Best Matched, 1=Distance, 2=Highest Rated
     var haveDeals: Bool
-    var categories: [YelpBusinessCategory]
+    var categories: [String]    // IDs
 }
 
 
-protocol YelpSearchSettingsDelegate {
-    func yelpSearchSettings(settings: YelpSearchSettings)
+protocol YelpSearchDelegate {
+    func yelpSearch()
 }
 
 
@@ -68,6 +67,7 @@ class YelpModel: BDBOAuth1RequestOperationManager {
     let CONSUMER_SECRET =   "EA71Q1CLdN-dOl-57Qd4b8eyKvQ"
     let TOKEN =             "rbNxBwQdQOyg8L8K8ZdFCjN-WPyV8LkA"
     let TOKEN_SECRET =      "SHqerU75fk50razhN0UqTm23QZE"
+    var settings = YelpSearchSettings(distance: 0, sortBy: 0, haveDeals: false, categories: [])
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -80,8 +80,9 @@ class YelpModel: BDBOAuth1RequestOperationManager {
         self.requestSerializer.saveAccessToken(token)
     }
 
-    func search(term: NSString, settings: YelpSearchSettings?, done: (businesses: [YelpBusiness], error: NSError?) -> Void) {
+    func search(term: NSString, done: (businesses: [YelpBusiness], error: NSError?) -> Void) {
         // Much to my frustration, I couldn't get CLLocationManager to work :(
+        // TODO -- find a better location, one with restaurants near it
         var latitude = "37.734444"
         var longitude = "-122.431944"
 
@@ -90,15 +91,15 @@ class YelpModel: BDBOAuth1RequestOperationManager {
             "ll": "\(latitude),\(longitude)",
         ]
         var categories = ["restaurants"]
-        if let gotSettings = settings {
-            parameters["radius_filter"] = "\(gotSettings.distance)"
-            parameters["sort"] = "\(gotSettings.sortBy)"
-            if gotSettings.haveDeals {
-                parameters["deals_filter"] = "true"
-            }
-            if gotSettings.categories.count > 0 {
-                categories += gotSettings.categories.map({ $0.id })
-            }
+        if settings.distance != 0 {
+            parameters["radius_filter"] = "\(settings.distance)"
+        }
+        parameters["sort"] = "\(settings.sortBy)"
+        if settings.haveDeals {
+            parameters["deals_filter"] = "true"
+        }
+        if settings.categories.count > 0 {
+            categories += settings.categories
         }
         parameters["category_filter"] = NSArray(array: categories).componentsJoinedByString(",")
         self.GET("search",
