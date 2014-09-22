@@ -18,6 +18,7 @@
 		619839C719CD2620001D0ACF /* YelpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619839C619CD2620001D0ACF /* YelpModel.swift */; };
 		619F28CA19CE84D4005AC0CE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619F28C919CE84D4005AC0CE /* CoreLocation.framework */; };
 		61A2981119CC18F60039D40F /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A2981019CC18F60039D40F /* BusinessCell.swift */; };
+		61DB366C19CFCF5400891817 /* YelpBusinessCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB366B19CFCF5400891817 /* YelpBusinessCategories.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		619839C619CD2620001D0ACF /* YelpModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpModel.swift; sourceTree = "<group>"; };
 		619F28C919CE84D4005AC0CE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		61A2981019CC18F60039D40F /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
+		61DB366B19CFCF5400891817 /* YelpBusinessCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpBusinessCategories.swift; sourceTree = "<group>"; };
 		CDCFD44FA64644E98F025135 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC4A51BDC5D2430EA5002EF4 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				619839C619CD2620001D0ACF /* YelpModel.swift */,
+				61DB366B19CFCF5400891817 /* YelpBusinessCategories.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				618B7F9C19CBFFA800AEEF9D /* SearchResultsViewController.swift in Sources */,
 				619839C719CD2620001D0ACF /* YelpModel.swift in Sources */,
 				618B7F7919CBFC7000AEEF9D /* AppDelegate.swift in Sources */,
+				61DB366C19CFCF5400891817 /* YelpBusinessCategories.swift in Sources */,
 				619839C519CD213D001D0ACF /* FiltersViewController.swift in Sources */,
 				61A2981119CC18F60039D40F /* BusinessCell.swift in Sources */,
 			);

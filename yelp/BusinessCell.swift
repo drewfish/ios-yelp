@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class BusinessCell: UITableViewCell {
     @IBOutlet weak var thumbImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -16,15 +17,32 @@ class BusinessCell: UITableViewCell {
     @IBOutlet weak var reviewsLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var categoriesLabel: UILabel!
+    let distanceFormatter = NSNumberFormatter()
 
     func formatFromBusiness(index: Int, business: YelpBusiness) {
-        ratingsImage.setImageWithURL(business.ratingsImageURL)
-        thumbImage.setImageWithURL(business.imageURL)
+        if business.imageURL != nil {
+            thumbImage.setImageWithURL(business.imageURL!)
+        }
+        if business.ratingsImageURL != nil {
+            ratingsImage.setImageWithURL(business.ratingsImageURL!)
+        }
         nameLabel.text = "\(index + 1). \(business.name)"
-//        distanceLabel.text = "\(business.distance)"        // TODO -- convert to miles
         reviewsLabel.text = "\(business.reviews) Reviews"
-//        locationLabel.text = business.location
-        // TODO -- categoriesLabel
+
+        // FUTURE -- most inefficient to configure formatter for every cell :(
+        distanceFormatter.numberStyle = .DecimalStyle
+        distanceFormatter.maximumFractionDigits = 2
+        distanceFormatter.roundingMode = .RoundUp
+        var distance = business.distance * 0.000621371
+        distanceLabel.text = "\(distanceFormatter.stringFromNumber(distance)) mi"
+
+        var address = business.location["display_address"] as [String]
+        if business.distance < 10000 {
+            address.removeLast()
+        }
+        locationLabel.text = NSArray(array: address).componentsJoinedByString(", ")
+
+        categoriesLabel.text = NSArray(array: business.categories.map({ $0.name })).componentsJoinedByString(", ")
     }
 
 //    override func awakeFromNib() {

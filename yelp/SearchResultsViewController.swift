@@ -16,7 +16,7 @@ class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITabl
 
     @IBAction func onFilter() {
         println("SEARCH --onFilter")
-        // TODO -- probably nothing to do here, since push is already setup
+        // FUTURE -- probably nothing to do here, since push is already setup
     }
 
     @IBAction func onSearch() {
@@ -42,6 +42,8 @@ class SearchResultsViewController: UIViewController, UISearchBarDelegate, UITabl
             MMProgressHUD.dismiss()
             if error != nil {
                 // TODO -- show error
+                println("------------------------------------ SEARCH ERROR")
+                println(error!)
                 return
             }
             self.businesses = businesses

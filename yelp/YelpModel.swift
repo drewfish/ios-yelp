@@ -20,20 +20,32 @@ struct YelpBusinessCategory {
 struct YelpBusiness {
     var id: String
     var name: String
-    var imageURL: NSURL             // image_url
-    var ratingsImageURL: NSURL      // rating_img_url
-    var reviews: Int                // review_count
-    var location: NSDictionary      // location
-//    var distance: Double            // distance
-//    var categories: [YelpBusinessCategory]
+    var imageURL: NSURL? = nil          // image_url
+    var ratingsImageURL: NSURL? = nil   // rating_img_url
+    var reviews: Int                    // review_count
+    var location: NSDictionary          // location
+    var distance: Double                // distance (meters)
+    var categories: [YelpBusinessCategory] = []
 
     init(json: NSDictionary) {
         self.id = json["id"] as String
         self.name = json["name"] as String
-        self.imageURL = NSURL(string: json["image_url"] as String)
-        self.ratingsImageURL = NSURL(string: json["rating_img_url"] as String)
-        self.reviews = json["review_count"] as Int
-        self.location = json["location"] as NSDictionary
+        if let imageURL = json["image_url"] as? String {
+            self.imageURL = NSURL(string: imageURL)
+        }
+        if let ratingsImageURL = json["rating_img_url"] as? String {
+            self.ratingsImageURL = NSURL(string: ratingsImageURL)
+        }
+        self.reviews = json["review_count"] as? Int ?? 0
+        self.location = json["location"] as? NSDictionary ?? [:]
+        self.distance = (json["distance"] as? Double) ?? 0
+        if let categories = json["categories"] as? NSArray {
+            for category in categories {
+                var id: String = category[1] as String
+                var name: String = category[0] as String
+                self.categories.append(YelpBusinessCategory(id: id, name: name, children: []))
+            }
+        }
     }
 }
 
@@ -51,19 +63,14 @@ protocol YelpSearchSettingsDelegate {
 }
 
 
-class YelpModel: BDBOAuth1RequestOperationManager, CLLocationManagerDelegate {
+class YelpModel: BDBOAuth1RequestOperationManager {
     let CONSUMER_KEY =      "yxVG9xnRiL8ZIRPbI70Irg"
     let CONSUMER_SECRET =   "EA71Q1CLdN-dOl-57Qd4b8eyKvQ"
     let TOKEN =             "rbNxBwQdQOyg8L8K8ZdFCjN-WPyV8LkA"
     let TOKEN_SECRET =      "SHqerU75fk50razhN0UqTm23QZE"
-    let locationManager = CLLocationManager()
-    var categories: [YelpBusinessCategory] = [
-        YelpBusinessCategory(id: "active", name: "Active Life", children: []),
-    ]
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        moreInit()
     }
 
     override init() {
@@ -71,46 +78,37 @@ class YelpModel: BDBOAuth1RequestOperationManager, CLLocationManagerDelegate {
         super.init(baseURL: baseURL, consumerKey: CONSUMER_KEY, consumerSecret: CONSUMER_SECRET)
         var token = BDBOAuthToken(token: TOKEN, secret: TOKEN_SECRET, expiration: nil)
         self.requestSerializer.saveAccessToken(token)
-        moreInit()
-    }
-
-    private func moreInit() {
-        locationManager.delegate = self
-//        locationManager.distanceFilter = kCLDistanceFilterNone
-//        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.startMonitoringSignificantLocationChanges()
-    }
-
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        println("------------------------------------------- LOCATION GOT")
-        println(locations)
-    }
-
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println("------------------------------------------- LOCATION ERROR")
-        println(error)
     }
 
     func search(term: NSString, settings: YelpSearchSettings?, done: (businesses: [YelpBusiness], error: NSError?) -> Void) {
+        // Much to my frustration, I couldn't get CLLocationManager to work :(
+        var latitude = "37.734444"
+        var longitude = "-122.431944"
+
         var parameters = [
             "term": term,
-            "location": "Kelseyville, CA"
+            "ll": "\(latitude),\(longitude)",
         ]
-println(locationManager.location)
-//println("--latitude \(locationManager.location.coordinate.latitude) --longitude \(locationManager.location.coordinate.longitude)")
+        var categories = ["restaurants"]
+        if let gotSettings = settings {
+            parameters["radius_filter"] = "\(gotSettings.distance)"
+            parameters["sort"] = "\(gotSettings.sortBy)"
+            if gotSettings.haveDeals {
+                parameters["deals_filter"] = "true"
+            }
+            if gotSettings.categories.count > 0 {
+                categories += gotSettings.categories.map({ $0.id })
+            }
+        }
+        parameters["category_filter"] = NSArray(array: categories).componentsJoinedByString(",")
         self.GET("search",
             parameters: parameters,
             success: {
                 (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
                 var list: [YelpBusiness] = []
-println("-----------------------------------------------------")
                 for jsonBusiness in (response["businesses"] as NSArray) {
-//println(jsonBusiness)
-                    var business = YelpBusiness(json: jsonBusiness as NSDictionary)
-//println(business.location)
-                    list.append(business)
+                    list.append(YelpBusiness(json: jsonBusiness as NSDictionary))
                 }
-println("-----------------------------------------------------")
                 done(businesses: list, error: nil)
             },
             failure: {
