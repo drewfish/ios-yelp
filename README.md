@@ -28,7 +28,7 @@ This is an iOS demo application for displaying business info from http://yelp.co
 
 * added a "search" button on search results page to rerun the search (user might have changed locations, so results might be different)
 * the "search" button on the filters page initiates the search, so that search loads while we're segueing
-* both the "distance" and "sort by" expand/collapse filter sections are handle by the same code
+* both the "distance" and "sort by" expand/collapse filter sections are handled by the same code
 
 
 ## Walkthrough of All User Stories

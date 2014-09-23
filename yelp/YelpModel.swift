@@ -82,15 +82,13 @@ class YelpModel: BDBOAuth1RequestOperationManager {
 
     func search(term: NSString, done: (businesses: [YelpBusiness], error: NSError?) -> Void) {
         // Much to my frustration, I couldn't get CLLocationManager to work :(
-        // TODO -- find a better location, one with restaurants near it
-        var latitude = "37.734444"
-        var longitude = "-122.431944"
+        var latitude = "37.756941"
+        var longitude = "-122.42109"
 
         var parameters = [
             "term": term,
             "ll": "\(latitude),\(longitude)",
         ]
-        var categories = ["restaurants"]
         if settings.distance != 0 {
             parameters["radius_filter"] = "\(settings.distance)"
         }
@@ -98,8 +96,9 @@ class YelpModel: BDBOAuth1RequestOperationManager {
         if settings.haveDeals {
             parameters["deals_filter"] = "true"
         }
+        var categories = ["restaurants"]
         if settings.categories.count > 0 {
-            categories += settings.categories
+            categories = settings.categories
         }
         parameters["category_filter"] = NSArray(array: categories).componentsJoinedByString(",")
         self.GET("search",
