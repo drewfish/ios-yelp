@@ -22,6 +22,8 @@ class BusinessCell: UITableViewCell {
     func formatFromBusiness(index: Int, business: YelpBusiness) {
         if business.imageURL != nil {
             thumbImage.setImageWithURL(business.imageURL!)
+            thumbImage.layer.cornerRadius = 8.0
+            thumbImage.layer.masksToBounds = true
         }
         if business.ratingsImageURL != nil {
             ratingsImage.setImageWithURL(business.ratingsImageURL!)

@@ -10,7 +10,7 @@ import UIKit
 
 
 // constants
-let SECTION_HEADINGS: [String] = [
+let SECTION_HEADINGS = [
     "Price",
     "Most Popular",
     "Distance",
@@ -37,6 +37,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     var haveDeals = false
     var sortbySection = RowSelectSingle()
     var distanceSection = RowSelectSingle()
+    var categoriesSection = RowSelectMultiple()
 
     @IBAction func onCancel() {
         // this is all we need to do
@@ -46,10 +47,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func onSearch() {
         yelpModel.settings.distance = distanceSection.chosenID.toInt()!
         yelpModel.settings.sortBy = sortbySection.chosenID.toInt()!
-        var dealsPath = NSIndexPath(forRow: 2, inSection: 1)
-        var dealsCell = tableView.cellForRowAtIndexPath(dealsPath) as SelectOptionCell
-        yelpModel.settings.haveDeals = dealsCell.enableSwitch.on
-        // TODO -- set categories into model
+        yelpModel.settings.haveDeals = haveDeals
+        yelpModel.settings.categories = categoriesSection.chosenIDs
         delegate?.yelpSearch()
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -60,10 +59,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.dataSource = self
         sortbySection.options = SORTBY_OPTIONS
         distanceSection.options = DISTANCE_OPTIONS
+        categoriesSection.options = yelpModel.categories.map { (id: $0.id, title: $0.name) }
         haveDeals = yelpModel.settings.haveDeals
         sortbySection.chosenID = "\(yelpModel.settings.sortBy)"
         distanceSection.chosenID = "\(yelpModel.settings.distance)"
-        // TODO -- init categories from model
+        categoriesSection.chosenIDs = yelpModel.settings.categories
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -81,9 +81,12 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 2: return distanceSection.numberOfRows()
         case 3: return sortbySection.numberOfRows()
         default: // case 4: categories
-            // TODO
-            return 0
+            return categoriesSection.numberOfRows()
         }
+    }
+
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -118,8 +121,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 3:
             return sortbySection.createCell(self.tableView, row: indexPath.row)
         default: // case 4: categories
-            // TODO
-            return self.tableView.dequeueReusableCellWithIdentifier("PriceCell") as UITableViewCell
+            return categoriesSection.createCell(self.tableView, row: indexPath.row)
         }
     }
 
@@ -128,16 +130,15 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 0: return
         case 1:
             var cell = self.tableView.cellForRowAtIndexPath(indexPath) as SelectOptionCell
-            var on = cell.enableSwitch.on
-            cell.enableSwitch.on = !on
+            haveDeals = !haveDeals
+            cell.enableSwitch.on = haveDeals
             cell.selected = false
         case 2:
             distanceSection.rowSelected(self.tableView, indexPath: indexPath)
         case 3:
             sortbySection.rowSelected(self.tableView, indexPath: indexPath)
         default: // case 4: categories
-            // TODO
-            println("--SELECTED --section \(indexPath.section) --row \(indexPath.row)")
+            categoriesSection.rowSelected(self.tableView, indexPath: indexPath)
         }
     }
 
@@ -184,6 +185,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.titleLabel.text = option.title
                 cell.enableSwitch.on = true
             }
+            // for some reason some cells are being disabled
+            cell.enableSwitch.enabled = true
+            cell.userInteractionEnabled = true
             return cell
         }
 
@@ -207,5 +211,113 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             // TODO -- scroll tableView so that section is more prominent
         }
     }
+
+
+    class RowSelectMultiple {
+        var isExpanded = false
+        var options: [(id: String, title: String)] = []
+        var chosenRows: [Int] = []
+        var chosenIDs: [String] {
+            get {
+                return chosenRows.map {
+                    self.options[$0].id
+                }
+            }
+            set {
+                var nsChosenIDs = NSArray(array: newValue)
+                var chosen: [Int] = []
+                for (o, option) in enumerate(options) {
+                    if nsChosenIDs.containsObject(option.id) {
+                        chosen.append(o)
+                    }
+                }
+                chosenRows = chosen
+            }
+        }
+
+        func numberOfRows() -> Int {
+            return isExpanded ? options.count + 1 : chosenRows.count + 1
+        }
+
+        func createCell(tableView: UITableView, row: Int) -> UITableViewCell {
+            if isExpanded {
+                if row == options.count {
+                    var cell = tableView.dequeueReusableCellWithIdentifier("SelectToggleCell") as SelectToggleCell
+                    cell.titleLabel.text = "Hide"
+                    return cell
+                }
+                else {
+                    var cell = tableView.dequeueReusableCellWithIdentifier("SelectOptionCell") as SelectOptionCell
+                    var option = options[row]
+                    cell.titleLabel.text = option.title
+                    var nsChosenRows = NSArray(array: chosenRows)
+                    cell.enableSwitch.on = nsChosenRows.containsObject(row)
+                    // for some reason some cells are being disabled
+                    cell.enableSwitch.enabled = true
+                    cell.userInteractionEnabled = true
+                    return cell
+                }
+            }
+            else {
+                if row == chosenRows.count {
+                    var cell = tableView.dequeueReusableCellWithIdentifier("SelectToggleCell") as SelectToggleCell
+                    cell.titleLabel.text = "Show All"
+                    return cell
+                }
+                else {
+                    var cell = tableView.dequeueReusableCellWithIdentifier("SelectOptionCell") as SelectOptionCell
+                    var option = options[chosenRows[row]]
+                    cell.titleLabel.text = option.title
+                    cell.enableSwitch.on = true
+                    // for some reason some cells are being disabled
+                    cell.enableSwitch.enabled = true
+                    cell.userInteractionEnabled = true
+                    return cell
+                }
+            }
+        }
+
+        func rowSelected(tableView: UITableView, indexPath: NSIndexPath) {
+            var nsChosenRows = NSArray(array: chosenRows)
+            var drop: Int?
+            if isExpanded {
+                if indexPath.row == options.count {
+                    isExpanded = false
+                    tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+                }
+                else {
+                    // toggle tapped row
+                    var cell = tableView.cellForRowAtIndexPath(indexPath) as SelectOptionCell
+                    if nsChosenRows.containsObject(indexPath.row) {
+                        cell.enableSwitch.on = false
+                        drop = indexPath.row
+                    }
+                    else {
+                        cell.enableSwitch.on = true
+                        chosenRows.append(indexPath.row)
+                        // sort so that choice order doesn't determine display order while collapsed
+                        chosenRows.sort { $0 < $1 }
+                    }
+                }
+            }
+            else {
+                if indexPath.row == chosenRows.count {
+                    isExpanded = true
+                    tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+                }
+                else {
+                    // drop tapped row from chosenRows
+                    drop = chosenRows[indexPath.row]
+                }
+            }
+            if drop != nil {
+                chosenRows = chosenRows.filter() { $0 != drop! }
+                if !isExpanded {
+                    tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+                }
+            }
+        }
+    }
+
 
 }
